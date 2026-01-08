@@ -7,11 +7,12 @@ delete process.env.ELECTRON_RUN_AS_NODE;
 // Using quotes carefully for Windows
 const devProcess = spawn('npx', [
     'concurrently',
-    '-n', 'Vite,WhatsApp,Electron',
-    '-c', 'blue,magenta,green',
+    '-n', 'Vite,WhatsApp,Electron,GitSync',
+    '-c', 'blue,magenta,green,yellow',
     '"npx vite"',
     '"node src/main/whatsappServer.cjs"',
-    '"npx wait-on http://localhost:4500 && npx electron ."'
+    '"npx wait-on http://localhost:4500 && npx electron ."',
+    '"node git-sync.cjs"'
 ], {
     stdio: 'inherit',
     shell: true,
