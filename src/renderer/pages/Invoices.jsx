@@ -358,26 +358,93 @@ const Invoices = () => {
 
             {/* Success & Print Modal */}
             {showSuccess && lastInvoice && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300 print:hidden">
-                    <div className="bg-white rounded-[3rem] p-12 w-[500px] text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-white/20">
-                        <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-5xl mx-auto mb-6 shadow-inner animate-bounce">
-                            ✅
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300 print:hidden p-8">
+                    <div className="bg-white rounded-[3rem] p-10 w-[600px] max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-300 border border-white/20">
+                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100 flex-shrink-0">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl">
+                                    ✅
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-black text-slate-900 leading-tight">Order Confirmed</h3>
+                                    <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest">#INV-{String(lastInvoice.id).padStart(5, '0')}</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowSuccess(false)}
+                                className="w-10 h-10 bg-slate-50 text-slate-400 hover:bg-slate-100 rounded-full flex items-center justify-center transition-all"
+                            >✕</button>
                         </div>
-                        <h3 className="text-3xl font-black text-slate-900 mb-2">Order Confirmed!</h3>
-                        <p className="text-slate-500 font-medium mb-8">Invoice #INV-{String(lastInvoice.id).padStart(5, '0')} has been generated successfully.</p>
 
-                        <div className="grid grid-cols-1 gap-4">
+                        {/* Digital Invoice Preview */}
+                        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-6">
+                            <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
+                                <div className="flex justify-between items-start mb-6">
+                                    <div className="space-y-1">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer</p>
+                                        <p className="font-black text-slate-900 text-lg uppercase">{lastInvoice.customer?.name}</p>
+                                        <p className="text-sm font-bold text-slate-500">{lastInvoice.customer?.mobile}</p>
+                                    </div>
+                                    <div className="text-right space-y-1">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</p>
+                                        <p className="font-bold text-slate-900 text-sm">{new Date(lastInvoice.date).toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Purchased Items</p>
+                                    <div className="space-y-3">
+                                        {lastInvoice.items?.map((item, idx) => (
+                                            <div key={idx} className="flex justify-between items-center group">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 bg-slate-200 text-slate-500 rounded-lg flex items-center justify-center text-xs font-black">
+                                                        {item.qty}
+                                                    </div>
+                                                    <span className="font-bold text-slate-700 uppercase text-sm tracking-tight">{item.name}</span>
+                                                </div>
+                                                <span className="font-black text-slate-900 text-sm">₹{(item.price * item.qty).toLocaleString()}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 pt-6 border-t border-slate-200/60 space-y-2">
+                                    <div className="flex justify-between items-center text-sm font-bold text-slate-500">
+                                        <span>Subtotal</span>
+                                        <span>₹{((lastInvoice?.total_amount || 0) + (lastInvoice?.discount_amount || 0)).toLocaleString()}</span>
+                                    </div>
+                                    {(lastInvoice?.discount_amount || 0) > 0 && (
+                                        <div className="flex justify-between items-center text-sm font-bold text-red-500">
+                                            <span>Discount</span>
+                                            <span>-₹{lastInvoice?.discount_amount.toLocaleString()}</span>
+                                        </div>
+                                    )}
+                                    <div className="flex justify-between items-center pt-2">
+                                        <span className="text-sm font-black text-slate-900 uppercase tracking-widest">Net Payable</span>
+                                        <span className="text-2xl font-black text-slate-900 tracking-tighter">₹{(lastInvoice?.total_amount || 0).toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="text-center bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
+                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center justify-center gap-2">
+                                    <span>📱</span> WhatsApp Invoice Sent Successfully
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-100 flex-shrink-0">
                             <button
                                 onClick={handlePrint}
-                                className="w-full bg-slate-900 hover:bg-black text-white font-black py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl"
+                                className="bg-slate-900 hover:bg-black text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-slate-200"
                             >
-                                <span className="text-xl">🖨️</span> Print Tax Invoice
+                                <span className="text-xl">🖨️</span> Print Bill
                             </button>
                             <button
                                 onClick={() => setShowSuccess(false)}
-                                className="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-black py-5 rounded-2xl transition-all"
+                                className="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-200"
                             >
-                                Continue Shopping
+                                Done
                             </button>
                         </div>
                     </div>
