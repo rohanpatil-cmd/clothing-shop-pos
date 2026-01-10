@@ -5,7 +5,7 @@ const SalesHistory = () => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [selectedInvoice, setSelectedInvoice] = useState(null);
-    const [activeFilter, setActiveFilter] = useState('all'); // 'all', 'today', 'weekly', 'monthly'
+    const [activeFilter, setActiveFilter] = useState('all'); // 'all', 'today', 'weekly', 'monthly', 'yearly'
 
     useEffect(() => {
         loadInvoices();
@@ -57,9 +57,12 @@ const SalesHistory = () => {
             case 'today': return isToday(inv.created_at);
             case 'weekly': return isWithinDays(inv.created_at, 7);
             case 'monthly': return isWithinDays(inv.created_at, 30);
+            case 'yearly': return isWithinDays(inv.created_at, 365);
             default: return true;
         }
     });
+
+    const periodTotal = filteredInvoices.reduce((sum, inv) => sum + inv.total_amount, 0);
 
     return (
         <div className="p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -67,6 +70,15 @@ const SalesHistory = () => {
                 <div>
                     <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Sales History</h2>
                     <p className="text-slate-500 mt-1 text-lg">Filter and track your store's transactions.</p>
+                </div>
+                <div className="bg-blue-600 text-white px-8 py-4 rounded-[2rem] shadow-xl shadow-blue-100 flex items-center gap-4 border border-blue-400/20">
+                    <div>
+                        <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80 mb-0.5">Period Total</div>
+                        <div className="text-3xl font-black tracking-tighter">₹{periodTotal.toLocaleString()}</div>
+                    </div>
+                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl">
+                        💰
+                    </div>
                 </div>
                 <div className="relative w-96">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
@@ -86,7 +98,8 @@ const SalesHistory = () => {
                     { id: 'all', label: 'All Records', icon: '📋' },
                     { id: 'today', label: 'Today', icon: '☀️' },
                     { id: 'weekly', label: 'Weekly', icon: '📅' },
-                    { id: 'monthly', label: 'Monthly', icon: '📊' }
+                    { id: 'monthly', label: 'Monthly', icon: '📊' },
+                    { id: 'yearly', label: 'Yearly', icon: '🏛️' }
                 ].map((tab) => (
                     <button
                         key={tab.id}

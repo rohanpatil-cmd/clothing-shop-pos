@@ -92,6 +92,13 @@ const Dashboard = ({ user }) => {
                             shadow="shadow-purple-200"
                         />
                         <StatCard
+                            label="Yearly (365D)"
+                            value={`₹${stats.yearlySales ? stats.yearlySales.toLocaleString() : '0'}`}
+                            icon="🏛️"
+                            color="from-orange-400 to-red-600"
+                            shadow="shadow-orange-200"
+                        />
+                        <StatCard
                             label="Lifetime Revenue"
                             value={`₹${stats.totalSales.toLocaleString()}`}
                             icon="💎"

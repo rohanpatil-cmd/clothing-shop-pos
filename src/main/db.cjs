@@ -247,6 +247,7 @@ const queries = {
       dailySales: db_instance.prepare("SELECT SUM(total_amount) as total FROM invoices WHERE date(created_at) = date('now')").get().total || 0,
       weeklySales: db_instance.prepare("SELECT SUM(total_amount) as total FROM invoices WHERE date(created_at) >= date('now', '-7 days')").get().total || 0,
       monthlySales: db_instance.prepare("SELECT SUM(total_amount) as total FROM invoices WHERE date(created_at) >= date('now', '-30 days')").get().total || 0,
+      yearlySales: db_instance.prepare("SELECT SUM(total_amount) as total FROM invoices WHERE date(created_at) >= date('now', '-365 days')").get().total || 0,
       orderCount: db_instance.prepare('SELECT COUNT(*) as count FROM invoices').get().count || 0,
       customerCount: db_instance.prepare('SELECT COUNT(DISTINCT mobile) as count FROM customers').get().count || 0,
       lowStockCount: db_instance.prepare('SELECT COUNT(*) as count FROM products WHERE stock_qty < 5').get().count || 0,
