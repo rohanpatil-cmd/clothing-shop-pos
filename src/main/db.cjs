@@ -285,6 +285,17 @@ const queries = {
       }
     });
     return transaction(settings);
+  },
+  resetSales: () => {
+    const database = getDb();
+    const transaction = database.transaction(() => {
+      database.prepare('DELETE FROM invoice_items').run();
+      database.prepare('DELETE FROM invoices').run();
+      // Optional: Reset product stock to a default or keep as is? 
+      // Based on "reset all sales", usually we just clear history.
+      // If we want to restore stock, that would be complex without a stock log.
+    });
+    return transaction();
   }
 };
 
