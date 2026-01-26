@@ -59,11 +59,6 @@ function registerIpcHandlers() {
 app.whenReady().then(() => {
     registerIpcHandlers();
 
-    // One-time reset of sales history
-    console.log('RESETTING ALL SALES...');
-    queries.resetSales();
-    console.log('SALES RESET COMPLETE.');
-
     createWindow();
 
     app.on('activate', () => {
