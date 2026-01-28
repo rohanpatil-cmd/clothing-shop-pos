@@ -12,13 +12,40 @@ import Settings from './pages/Settings';
 function App() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+    loadTheme();
   }, []);
+
+  const loadTheme = async () => {
+    try {
+      const settings = await window.electron.getSettings();
+      if (settings && settings.theme) {
+        setTheme(settings.theme);
+        applyTheme(settings.theme);
+      }
+    } catch (err) {
+      console.error('Failed to load theme:', err);
+    }
+  };
+
+  const applyTheme = (currentTheme) => {
+    if (currentTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  // Re-load theme periodically or when switching tabs to ensure it's synced
+  useEffect(() => {
+    if (user) loadTheme();
+  }, [activeTab, user]);
 
   const handleLogin = (userData) => {
     setUser(userData);

@@ -198,6 +198,26 @@ const Settings = () => {
                                 onChange={e => setSettings({ ...settings, currency_symbol: e.target.value })}
                             />
                         </div>
+
+                        <div className="space-y-2 md:col-span-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Application Theme</label>
+                            <div className="flex gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setSettings({ ...settings, theme: 'light' })}
+                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'light' ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200'}`}
+                                >
+                                    <span>☀️</span> Light Mode
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSettings({ ...settings, theme: 'dark' })}
+                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'dark' ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200'}`}
+                                >
+                                    <span>🌙</span> Dark Mode
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
