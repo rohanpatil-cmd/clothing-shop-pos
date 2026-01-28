@@ -44,14 +44,14 @@ const Dashboard = ({ user }) => {
         <div className="p-8 animate-in fade-in duration-500">
             <div className="mb-10 flex justify-between items-end">
                 <div>
-                    <h2 className="text-4xl font-black text-slate-900 tracking-tight">
+                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                         {isManager ? 'Executive Dashboard' : 'Staff Dashboard'}
                     </h2>
-                    <p className="text-slate-500 mt-2 text-lg">
+                    <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">
                         {isManager ? 'Sales performance across different timeframes.' : 'Overview of today\'s shop activity.'}
                     </p>
                 </div>
-                <div className="text-sm font-bold text-slate-400 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 italic">
+                <div className="text-sm font-bold text-slate-400 bg-white dark:bg-slate-900 px-4 py-2 rounded-xl shadow-sm border border-slate-100 dark:border-white/5 italic">
                     Live Data Since Inception
                 </div>
             </div>
@@ -59,7 +59,7 @@ const Dashboard = ({ user }) => {
             {/* Main Stats Row - Revenue Breakdown */}
             <div className={`grid grid-cols-1 ${isManager ? 'md:grid-cols-2 lg:grid-cols-4' : ''} gap-6 mb-10`}>
                 <div className={`${isManager ? '' : 'col-span-full'} transition-transform hover:scale-[1.02]`}>
-                    <div className={`bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-10 text-white shadow-2xl shadow-blue-200 flex items-center justify-between border border-white/10 relative overflow-hidden group`}>
+                    <div className={`bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-10 text-white shadow-2xl shadow-blue-200 dark:shadow-none flex items-center justify-between border border-white/10 relative overflow-hidden group`}>
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform group-hover:scale-110 duration-700"></div>
                         <div className="relative z-10">
                             <div className="text-blue-100 text-sm font-black uppercase tracking-[0.2em] mb-3">Today's Sales Revenue</div>
@@ -112,62 +112,62 @@ const Dashboard = ({ user }) => {
             {/* Secondary Stats Row - Operational (Manager Only) */}
             {isManager && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-50 flex items-center gap-4 transition-transform hover:scale-[1.02]">
-                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl font-bold">🧾</div>
+                    <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-slate-50 dark:border-white/5 flex items-center gap-4 transition-transform hover:scale-[1.02]">
+                        <div className="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-xl font-bold">🧾</div>
                         <div>
-                            <div className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Total Orders</div>
-                            <div className="text-2xl font-black text-slate-900">{stats.orderCount}</div>
+                            <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Total Orders</div>
+                            <div className="text-2xl font-black text-slate-900 dark:text-white">{stats.orderCount}</div>
                         </div>
                     </div>
-                    <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-50 flex items-center gap-4 transition-transform hover:scale-[1.02]">
-                        <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold">👥</div>
+                    <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-slate-50 dark:border-white/5 flex items-center gap-4 transition-transform hover:scale-[1.02]">
+                        <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center text-xl font-bold">👥</div>
                         <div>
-                            <div className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Customers</div>
-                            <div className="text-2xl font-black text-slate-900">{stats.customerCount}</div>
+                            <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Customers</div>
+                            <div className="text-2xl font-black text-slate-900 dark:text-white">{stats.customerCount}</div>
                         </div>
                     </div>
-                    <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-50 flex items-center gap-4 transition-transform hover:scale-[1.02]">
-                        <div className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-xl font-bold">🚨</div>
+                    <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-slate-50 dark:border-white/5 flex items-center gap-4 transition-transform hover:scale-[1.02]">
+                        <div className="w-12 h-12 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center text-xl font-bold">🚨</div>
                         <div>
-                            <div className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Low Stock Items</div>
-                            <div className="text-2xl font-black text-slate-900">{stats.lowStockCount}</div>
+                            <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Low Stock Items</div>
+                            <div className="text-2xl font-black text-slate-900 dark:text-white">{stats.lowStockCount}</div>
                         </div>
                     </div>
                 </div>
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className={`${isManager ? 'lg:col-span-2' : 'lg:col-span-3'} bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 overflow-hidden`}>
-                    <h3 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                <div className={`${isManager ? 'lg:col-span-2' : 'lg:col-span-3'} bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-xl border border-slate-100 dark:border-white/5 p-8 overflow-hidden`}>
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                         <span className="text-blue-500">⚡</span>
                         Recent Sales Feed
                     </h3>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="bg-slate-50 border-b border-slate-100">
+                            <thead className="bg-slate-50 dark:bg-white/5 border-b border-slate-100 dark:border-white/5">
                                 <tr>
-                                    <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-[10px]">Order ID</th>
-                                    <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-[10px]">Customer</th>
-                                    <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-[10px]">Method</th>
-                                    <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-[10px] text-right">Amount</th>
+                                    <th className="px-6 py-4 text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-[10px]">Order ID</th>
+                                    <th className="px-6 py-4 text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-[10px]">Customer</th>
+                                    <th className="px-6 py-4 text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-[10px]">Method</th>
+                                    <th className="px-6 py-4 text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest text-[10px] text-right">Amount</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-50">
+                            <tbody className="divide-y divide-slate-50 dark:divide-white/5">
                                 {stats.recentInvoices.length === 0 ? (
                                     <tr>
-                                        <td colSpan="4" className="px-6 py-10 text-center text-slate-300 font-medium">No sales recorded yet.</td>
+                                        <td colSpan="4" className="px-6 py-10 text-center text-slate-300 dark:text-slate-600 font-medium">No sales recorded yet.</td>
                                     </tr>
                                 ) : (
                                     stats.recentInvoices.map((inv) => (
-                                        <tr key={inv.id} className="hover:bg-slate-50/50 transition-colors">
-                                            <td className="px-6 py-4 font-bold text-slate-900">#INV-{inv.id}</td>
-                                            <td className="px-6 py-4 text-slate-600 font-medium">{inv.customer_name}</td>
+                                        <tr key={inv.id} className="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors">
+                                            <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">#INV-{inv.id}</td>
+                                            <td className="px-6 py-4 text-slate-600 dark:text-slate-300 font-medium">{inv.customer_name}</td>
                                             <td className="px-6 py-4">
-                                                <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                                <span className="bg-blue-50 dark:bg-blue-600/20 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
                                                     {inv.payment_method}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 text-right font-black text-slate-900">₹{inv.total_amount}</td>
+                                            <td className="px-6 py-4 text-right font-black text-slate-900 dark:text-white">₹{inv.total_amount}</td>
                                         </tr>
                                     ))
                                 )}
