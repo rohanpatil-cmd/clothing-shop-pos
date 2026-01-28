@@ -170,7 +170,7 @@ const Invoices = () => {
 
 
     return (
-        <div className="flex h-screen overflow-hidden bg-slate-50 relative">
+        <div className="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 relative">
             <style>
                 {`
                     @media print {
@@ -198,15 +198,15 @@ const Invoices = () => {
             <div className="flex-1 flex flex-col p-8 overflow-hidden print:hidden">
                 <div className="mb-8 flex justify-between items-center">
                     <div>
-                        <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">Checkout Counter</h2>
-                        <p className="text-slate-500 font-medium">Select products to build customer invoice.</p>
+                        <h2 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Checkout Counter</h2>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">Select products to build customer invoice.</p>
                     </div>
                     <div className="relative w-96">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
                         <input
                             type="text"
                             placeholder="Find items..."
-                            className="w-full bg-white border border-slate-200 rounded-3xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-blue-500 shadow-sm shadow-slate-200/50 transition-all outline-none font-bold text-slate-900"
+                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-3xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-blue-500 shadow-sm shadow-slate-200/50 dark:shadow-none transition-all outline-none font-bold text-slate-900 dark:text-white"
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                         />
@@ -220,30 +220,30 @@ const Invoices = () => {
                             onClick={() => addToCart(product)}
                             disabled={product.stock_qty <= 0}
                             className={`p-5 rounded-[2.5rem] border text-left transition-all group relative overflow-hidden flex flex-col ${product.stock_qty <= 0
-                                ? 'bg-slate-50 border-slate-100 opacity-60 cursor-not-allowed shadow-none'
-                                : 'bg-white border-white hover:border-blue-200 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.12)] hover:-translate-y-1'
+                                ? 'bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-white/5 opacity-60 cursor-not-allowed shadow-none'
+                                : 'bg-white dark:bg-slate-900 border-white dark:border-white/5 hover:border-blue-200 dark:hover:border-blue-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-[0_20px_50px_rgba(59,130,246,0.12)] hover:-translate-y-1'
                                 }`}
                         >
-                            <div className="bg-slate-100 rounded-3xl h-48 flex items-center justify-center mb-5 group-hover:bg-blue-50 transition-all overflow-hidden relative shadow-inner">
+                            <div className="bg-slate-100 dark:bg-slate-800 rounded-3xl h-48 flex items-center justify-center mb-5 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-all overflow-hidden relative shadow-inner">
                                 {product.image ? (
                                     <img src={product.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={product.name} />
                                 ) : (
                                     <span className="text-5xl drop-shadow-lg">👕</span>
                                 )}
                                 {product.stock_qty <= 0 && (
-                                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
                                         <span className="text-white font-black uppercase tracking-widest text-xs bg-red-600 px-4 py-1.5 rounded-full">Out of Stock</span>
                                     </div>
                                 )}
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-black text-slate-900 text-lg leading-tight mb-1 truncate">{product.name}</h3>
-                                <p className="text-[10px] text-slate-400 mb-4 uppercase font-black tracking-[0.2em]">{product.category || 'Standard'}</p>
+                                <h3 className="font-black text-slate-900 dark:text-white text-lg leading-tight mb-1 truncate uppercase">{product.name}</h3>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 mb-4 uppercase font-black tracking-[0.2em]">{product.category || 'Standard'}</p>
                                 <div className="flex justify-between items-end mt-auto">
-                                    <span className="text-2xl font-black text-blue-600 tracking-tighter">₹{product.selling_price.toLocaleString()}</span>
+                                    <span className="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter">₹{product.selling_price.toLocaleString()}</span>
                                     <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${product.stock_qty < 5
-                                        ? 'bg-red-50 text-red-600 border-red-100'
-                                        : 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                        ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border-red-100 dark:border-red-500/20'
+                                        : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/20'
                                         }`}>
                                         {product.stock_qty} IN STOCK
                                     </span>
