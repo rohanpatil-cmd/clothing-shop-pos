@@ -7,7 +7,8 @@ const Settings = () => {
         store_contact: '',
         whatsapp_token: '',
         whatsapp_phone_id: '',
-        currency_symbol: '₹'
+        currency_symbol: '₹',
+        theme: 'light'
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
