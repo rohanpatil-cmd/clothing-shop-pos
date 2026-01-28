@@ -84,13 +84,13 @@ const Settings = () => {
         <div className="p-12 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="mb-12 flex justify-between items-start">
                 <div>
-                    <h2 className="text-5xl font-black text-slate-900 tracking-tight mb-2">System Settings</h2>
-                    <p className="text-slate-500 text-lg font-medium">Configure your store identity and API integrations.</p>
+                    <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-2">System Settings</h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">Configure your store identity and API integrations.</p>
                 </div>
             </div>
 
             {message.text && (
-                <div className={`mb-8 p-4 rounded-2xl font-black text-sm uppercase tracking-widest text-center animate-in zoom-in-95 duration-300 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'
+                <div className={`mb-8 p-4 rounded-2xl font-black text-sm uppercase tracking-widest text-center animate-in zoom-in-95 duration-300 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20' : 'bg-red-50 text-red-600 border border-red-100 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20'
                     }`}>
                     {message.text}
                 </div>
@@ -98,42 +98,42 @@ const Settings = () => {
 
             <form onSubmit={handleSave} className="space-y-8 pb-10">
                 {/* Store Profile Section */}
-                <section className="bg-white rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/50 border border-slate-100">
-                    <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50">
+                <section className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/5">
+                    <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50 dark:border-white/5">
                         <span className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl">🏢</span>
                         <div>
-                            <h3 className="text-2xl font-black text-slate-900 leading-tight">Store Profile</h3>
-                            <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">Identity & Contact Info</p>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">Store Profile</h3>
+                            <p className="text-slate-400 dark:text-slate-500 text-sm font-bold uppercase tracking-widest">Identity & Contact Info</p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Store Name</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Store Name</label>
                             <input
                                 required
                                 type="text"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
+                                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-2xl px-6 py-4 font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
                                 value={settings.store_name}
                                 onChange={e => setSettings({ ...settings, store_name: e.target.value })}
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Contact Number</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Contact Number</label>
                             <input
                                 required
                                 type="text"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
+                                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-2xl px-6 py-4 font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
                                 value={settings.store_contact}
                                 onChange={e => setSettings({ ...settings, store_contact: e.target.value })}
                             />
                         </div>
                         <div className="md:col-span-2 space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Store Address</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Store Address</label>
                             <textarea
                                 required
                                 rows="3"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none resize-none"
+                                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-2xl px-6 py-4 font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none resize-none"
                                 value={settings.store_address}
                                 onChange={e => setSettings({ ...settings, store_address: e.target.value })}
                             />
