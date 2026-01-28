@@ -13,6 +13,11 @@ const Settings = () => {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState({ text: '', type: '' });
 
+    // Reset States
+    const [showResetModal, setShowResetModal] = useState(false);
+    const [resetType, setResetType] = useState(null);
+    const [isResetting, setIsResetting] = useState(false);
+
     useEffect(() => {
         loadSettings();
     }, []);
@@ -44,6 +49,28 @@ const Settings = () => {
         }
     };
 
+    const confirmReset = async () => {
+        setIsResetting(true);
+        try {
+            switch (resetType) {
+                case 'sales': await window.electron.resetSales(); break;
+                case 'customers': await window.electron.resetCustomers(); break;
+                case 'inventory': await window.electron.resetInventory(); break;
+                case 'stocks': await window.electron.resetStocks(); break;
+                case 'all': await window.electron.resetAll(); break;
+                default: break;
+            }
+            setShowResetModal(false);
+            setResetType(null);
+            setMessage({ text: 'System reset successful! 🧹', type: 'success' });
+        } catch (err) {
+            console.error('Reset failed:', err);
+            setMessage({ text: 'System reset failed. ❌', type: 'error' });
+        } finally {
+            setIsResetting(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="h-full flex items-center justify-center">
@@ -54,9 +81,11 @@ const Settings = () => {
 
     return (
         <div className="p-12 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div className="mb-12">
-                <h2 className="text-5xl font-black text-slate-900 tracking-tight mb-2">System Settings</h2>
-                <p className="text-slate-500 text-lg font-medium">Configure your store identity and API integrations.</p>
+            <div className="mb-12 flex justify-between items-start">
+                <div>
+                    <h2 className="text-5xl font-black text-slate-900 tracking-tight mb-2">System Settings</h2>
+                    <p className="text-slate-500 text-lg font-medium">Configure your store identity and API integrations.</p>
+                </div>
             </div>
 
             {message.text && (
@@ -66,7 +95,7 @@ const Settings = () => {
                 </div>
             )}
 
-            <form onSubmit={handleSave} className="space-y-8 pb-20">
+            <form onSubmit={handleSave} className="space-y-8 pb-10">
                 {/* Store Profile Section */}
                 <section className="bg-white rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/50 border border-slate-100">
                     <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50">
@@ -144,12 +173,6 @@ const Settings = () => {
                                 onChange={e => setSettings({ ...settings, whatsapp_phone_id: e.target.value })}
                             />
                         </div>
-                        <div className="md:col-span-2 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
-                            <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider leading-relaxed">
-                                <span className="mr-2">💡</span>
-                                These credentials enable automated customer billing via WhatsApp. You can generate these in your Meta Developers Dashboard under the WhatsApp Cloud API section.
-                            </p>
-                        </div>
                     </div>
                 </section>
 
@@ -177,7 +200,7 @@ const Settings = () => {
                     </div>
                 </section>
 
-                <div className="flex justify-end gap-6 pt-10">
+                <div className="flex justify-end gap-6 pt-4">
                     <button
                         type="button"
                         onClick={loadSettings}
@@ -199,8 +222,96 @@ const Settings = () => {
                     </button>
                 </div>
             </form>
+
+            {/* Danger Zone Section */}
+            <div className="mt-16 pt-16 border-t border-slate-200">
+                <div className="flex items-center gap-4 mb-10">
+                    <span className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-xl">⚠️</span>
+                    <div>
+                        <h3 className="text-2xl font-black text-red-600 leading-tight uppercase tracking-tight">Danger Zone</h3>
+                        <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">System Reset & Data Deletion</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <ResetActionCard
+                        title="Reset Sales"
+                        desc="Clear all invoice history and revenue records."
+                        onClick={() => { setResetType('sales'); setShowResetModal(true); }}
+                    />
+                    <ResetActionCard
+                        title="Clear Customers"
+                        desc="Delete all customer profiles and their data."
+                        onClick={() => { setResetType('customers'); setShowResetModal(true); }}
+                    />
+                    <ResetActionCard
+                        title="Wipe Inventory"
+                        desc="Remove all products and catalog items."
+                        onClick={() => { setResetType('inventory'); setShowResetModal(true); }}
+                    />
+                    <ResetActionCard
+                        title="Zero Stocks"
+                        desc="Reset all quantities to 0 and clear purchases."
+                        onClick={() => { setResetType('stocks'); setShowResetModal(true); }}
+                    />
+                    <button
+                        onClick={() => { setResetType('all'); setShowResetModal(true); }}
+                        className="col-span-full bg-red-600 hover:bg-red-700 text-white p-8 rounded-[2rem] font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 shadow-xl shadow-red-200 active:scale-95"
+                    >
+                        🧨 FULL FACTORY RESET (EVERYTHING)
+                    </button>
+                </div>
+            </div>
+
+            {/* Reset Confirmation Modal */}
+            {showResetModal && (
+                <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+                    <div className="bg-white rounded-[3rem] shadow-2xl w-full max-w-xl overflow-hidden animate-in zoom-in duration-300">
+                        <div className="p-10 text-center">
+                            <div className="w-24 h-24 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">🚨</div>
+                            <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Final Confirmation</h3>
+                            <p className="text-slate-500 font-medium mb-8">
+                                Are you sure you want to reset <span className="text-red-600 font-bold underline underline-offset-4">{resetType?.toUpperCase()}</span>?
+                                This action <span className="text-red-600 font-bold italic">cannot be undone</span>.
+                            </p>
+
+                            <div className="flex gap-4">
+                                <button
+                                    disabled={isResetting}
+                                    onClick={() => { setShowResetModal(false); setResetType(null); }}
+                                    className="flex-1 bg-slate-100 text-slate-900 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition-all disabled:opacity-50"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    disabled={isResetting}
+                                    onClick={confirmReset}
+                                    className="flex-1 bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg shadow-red-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                                >
+                                    {isResetting ? 'Wiping...' : 'Destroy Data'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
+
+const ResetActionCard = ({ title, desc, onClick }) => (
+    <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-100 hover:border-red-100 transition-all flex flex-col justify-between items-start gap-4">
+        <div>
+            <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight">{title}</h4>
+            <p className="text-slate-400 text-xs font-bold leading-relaxed">{desc}</p>
+        </div>
+        <button
+            onClick={onClick}
+            className="text-xs font-black text-red-600 uppercase tracking-widest hover:underline"
+        >
+            Perform Reset →
+        </button>
+    </div>
+);
 
 export default Settings;
