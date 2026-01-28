@@ -291,9 +291,44 @@ const queries = {
     const transaction = database.transaction(() => {
       database.prepare('DELETE FROM invoice_items').run();
       database.prepare('DELETE FROM invoices').run();
-      // Optional: Reset product stock to a default or keep as is? 
-      // Based on "reset all sales", usually we just clear history.
-      // If we want to restore stock, that would be complex without a stock log.
+    });
+    return transaction();
+  },
+  resetCustomers: () => {
+    const database = getDb();
+    const transaction = database.transaction(() => {
+      database.prepare('DELETE FROM invoice_items').run();
+      database.prepare('DELETE FROM invoices').run();
+      database.prepare('DELETE FROM customers').run();
+    });
+    return transaction();
+  },
+  resetInventory: () => {
+    const database = getDb();
+    const transaction = database.transaction(() => {
+      database.prepare('DELETE FROM invoice_items').run();
+      database.prepare('DELETE FROM invoices').run();
+      database.prepare('DELETE FROM purchases').run();
+      database.prepare('DELETE FROM products').run();
+    });
+    return transaction();
+  },
+  resetStocks: () => {
+    const database = getDb();
+    const transaction = database.transaction(() => {
+      database.prepare('DELETE FROM purchases').run();
+      database.prepare('UPDATE products SET stock_qty = 0').run();
+    });
+    return transaction();
+  },
+  resetAll: () => {
+    const database = getDb();
+    const transaction = database.transaction(() => {
+      database.prepare('DELETE FROM invoice_items').run();
+      database.prepare('DELETE FROM invoices').run();
+      database.prepare('DELETE FROM purchases').run();
+      database.prepare('DELETE FROM products').run();
+      database.prepare('DELETE FROM customers').run();
     });
     return transaction();
   }

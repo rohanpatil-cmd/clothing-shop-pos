@@ -54,6 +54,12 @@ function registerIpcHandlers() {
     // Settings
     ipcMain.handle('get-settings', () => queries.getSettings());
     ipcMain.handle('update-settings', (event, settings) => queries.updateSettings(settings));
+    // Reset Operations
+    ipcMain.handle('reset-sales', () => queries.resetSales());
+    ipcMain.handle('reset-customers', () => queries.resetCustomers());
+    ipcMain.handle('reset-inventory', () => queries.resetInventory());
+    ipcMain.handle('reset-stocks', () => queries.resetStocks());
+    ipcMain.handle('reset-all', () => queries.resetAll());
 }
 
 app.whenReady().then(() => {

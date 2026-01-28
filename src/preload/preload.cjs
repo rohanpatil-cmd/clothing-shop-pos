@@ -30,4 +30,11 @@ contextBridge.exposeInMainWorld('electron', {
     // Settings
     getSettings: () => ipcRenderer.invoke('get-settings'),
     updateSettings: (settings) => ipcRenderer.invoke('update-settings', settings),
+
+    // Reset Operations
+    resetSales: () => ipcRenderer.invoke('reset-sales'),
+    resetCustomers: () => ipcRenderer.invoke('reset-customers'),
+    resetInventory: () => ipcRenderer.invoke('reset-inventory'),
+    resetStocks: () => ipcRenderer.invoke('reset-stocks'),
+    resetAll: () => ipcRenderer.invoke('reset-all'),
 });

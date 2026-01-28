@@ -12,6 +12,9 @@ const Dashboard = ({ user }) => {
         recentInvoices: []
     });
     const [loading, setLoading] = useState(true);
+    const [showResetModal, setShowResetModal] = useState(false);
+    const [resetType, setResetType] = useState(null);
+    const [isResetting, setIsResetting] = useState(false);
 
     const isManager = user?.role === 'manager';
 
@@ -27,6 +30,29 @@ const Dashboard = ({ user }) => {
             console.error('Failed to load dashboard stats:', err);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const confirmReset = async () => {
+        setIsResetting(true);
+        try {
+            switch (resetType) {
+                case 'sales': await window.electron.resetSales(); break;
+                case 'customers': await window.electron.resetCustomers(); break;
+                case 'inventory': await window.electron.resetInventory(); break;
+                case 'stocks': await window.electron.resetStocks(); break;
+                case 'all': await window.electron.resetAll(); break;
+                default: break;
+            }
+            await loadStats();
+            setShowResetModal(false);
+            setResetType(null);
+            alert('Reset successful!');
+        } catch (err) {
+            console.error('Reset failed:', err);
+            alert('Failed to reset data.');
+        } finally {
+            setIsResetting(false);
         }
     };
 
@@ -51,8 +77,18 @@ const Dashboard = ({ user }) => {
                         {isManager ? 'Sales performance across different timeframes.' : 'Overview of today\'s shop activity.'}
                     </p>
                 </div>
-                <div className="text-sm font-bold text-slate-400 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 italic">
-                    Live Data Since Inception
+                <div className="flex items-center gap-4">
+                    {isManager && (
+                        <button
+                            onClick={() => setShowResetModal(true)}
+                            className="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all shadow-sm border border-red-100 flex items-center gap-2"
+                        >
+                            <span>⚠️</span> Reset Operations
+                        </button>
+                    )}
+                    <div className="text-sm font-bold text-slate-400 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 italic">
+                        Live Data Since Inception
+                    </div>
                 </div>
             </div>
 
@@ -201,9 +237,101 @@ const Dashboard = ({ user }) => {
                     </div>
                 )}
             </div>
+
+            {/* Reset Modal */}
+            {showResetModal && (
+                <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+                    <div className="bg-white rounded-[3rem] shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300">
+                        <div className="p-10">
+                            <div className="flex justify-between items-start mb-8">
+                                <div>
+                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight">System Reset Operations</h3>
+                                    <p className="text-slate-500 mt-2 font-medium">Select an area to clear. This action is irreversible.</p>
+                                </div>
+                                <button
+                                    onClick={() => { setShowResetModal(false); setResetType(null); }}
+                                    className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            {resetType ? (
+                                <div className="bg-red-50 border-2 border-red-100 rounded-[2rem] p-8 text-center">
+                                    <div className="text-5xl mb-4">🚨</div>
+                                    <h4 className="text-2xl font-black text-red-600 mb-2 uppercase tracking-tight">Are you absolutely sure?</h4>
+                                    <p className="text-red-900/60 font-bold mb-8 italic">
+                                        You are about to reset <span className="underline decoration-wavy underline-offset-4">{resetType.toUpperCase()}</span>. All data in this category will be permanently deleted.
+                                    </p>
+                                    <div className="flex gap-4">
+                                        <button
+                                            disabled={isResetting}
+                                            onClick={() => setResetType(null)}
+                                            className="flex-1 bg-white text-slate-900 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all border border-slate-200 disabled:opacity-50"
+                                        >
+                                            Go Back
+                                        </button>
+                                        <button
+                                            disabled={isResetting}
+                                            onClick={confirmReset}
+                                            className="flex-1 bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg shadow-red-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                                        >
+                                            {isResetting ? 'Resetting...' : 'Confirm Reset'}
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <ResetOption
+                                        title="Sales History"
+                                        desc="Clear all invoices and billing data."
+                                        icon="🧾"
+                                        onClick={() => setResetType('sales')}
+                                    />
+                                    <ResetOption
+                                        title="Customer Data"
+                                        desc="Delete all customer profiles & history."
+                                        icon="👥"
+                                        onClick={() => setResetType('customers')}
+                                    />
+                                    <ResetOption
+                                        title="Inventory"
+                                        desc="Remove all products and catalogs."
+                                        icon="📦"
+                                        onClick={() => setResetType('inventory')}
+                                    />
+                                    <ResetOption
+                                        title="Stock Levels"
+                                        desc="Set all stock to 0 & clear purchases."
+                                        icon="📉"
+                                        onClick={() => setResetType('stocks')}
+                                    />
+                                    <button
+                                        onClick={() => setResetType('all')}
+                                        className="col-span-full mt-4 bg-slate-900 text-white py-6 rounded-3xl font-black uppercase tracking-[0.3em] hover:bg-black transition-all flex items-center justify-center gap-3"
+                                    >
+                                        🧨 Factory Reset (Everything)
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
+
+const ResetOption = ({ title, desc, icon, onClick }) => (
+    <button
+        onClick={onClick}
+        className="text-left p-6 rounded-[2rem] border-2 border-slate-100 hover:border-red-200 hover:bg-red-50/30 transition-all group"
+    >
+        <div className="text-3xl mb-3 group-hover:scale-110 transition-transform origin-left">{icon}</div>
+        <div className="font-black text-slate-900 uppercase tracking-tight text-lg leading-tight mb-1">{title}</div>
+        <div className="text-slate-400 text-xs font-bold font-mono">{desc}</div>
+    </button>
+);
 
 const StatCard = ({ label, value, icon, color, shadow }) => (
     <div className={`bg-white rounded-[2.5rem] p-8 shadow-xl ${shadow} border border-slate-100 flex items-center justify-between transition-transform hover:scale-[1.03] group`}>
