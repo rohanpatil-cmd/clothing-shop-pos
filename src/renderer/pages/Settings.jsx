@@ -178,41 +178,41 @@ const Settings = () => {
                 </section>
 
                 {/* System Section */}
-                <section className="bg-white rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/50 border border-slate-100">
-                    <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50">
-                        <span className="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-xl">⚙️</span>
+                <section className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/5">
+                    <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50 dark:border-white/5">
+                        <span className="w-12 h-12 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl flex items-center justify-center text-xl">⚙️</span>
                         <div>
-                            <h3 className="text-2xl font-black text-slate-900 leading-tight">Preferences</h3>
-                            <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">Localization & Defaults</p>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">Preferences</h3>
+                            <p className="text-slate-400 dark:text-slate-500 text-sm font-bold uppercase tracking-widest">Localization & Defaults</p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Currency Symbol</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Currency Symbol</label>
                             <input
                                 required
                                 type="text"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-black text-slate-900 text-center text-2xl focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
+                                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-2xl px-6 py-4 font-black text-slate-900 dark:text-white text-center text-2xl focus:ring-2 focus:ring-blue-500 shadow-inner transition-all outline-none"
                                 value={settings.currency_symbol}
                                 onChange={e => setSettings({ ...settings, currency_symbol: e.target.value })}
                             />
                         </div>
 
                         <div className="space-y-2 md:col-span-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Application Theme</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Application Theme</label>
                             <div className="flex gap-4">
                                 <button
                                     type="button"
                                     onClick={() => setSettings({ ...settings, theme: 'light' })}
-                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'light' ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200'}`}
+                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'light' ? 'border-blue-600 bg-blue-50 text-blue-600 dark:bg-blue-600/20' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200 dark:border-white/5 dark:bg-white/5'}`}
                                 >
                                     <span>☀️</span> Light Mode
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setSettings({ ...settings, theme: 'dark' })}
-                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'dark' ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200'}`}
+                                    className={`flex-1 p-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs ${settings.theme === 'dark' ? 'border-slate-900 bg-slate-900 text-white dark:border-white/20 dark:bg-white/10' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-slate-200 dark:border-white/5 dark:bg-white/5'}`}
                                 >
                                     <span>🌙</span> Dark Mode
                                 </button>
@@ -225,14 +225,14 @@ const Settings = () => {
                     <button
                         type="button"
                         onClick={loadSettings}
-                        className="px-10 py-5 rounded-[1.5rem] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest text-xs"
+                        className="px-10 py-5 rounded-[1.5rem] font-black text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-widest text-xs"
                     >
                         Reset Changes
                     </button>
                     <button
                         type="submit"
                         disabled={saving}
-                        className="bg-slate-900 hover:bg-black text-white px-12 py-5 rounded-[1.5rem] font-black transition-all shadow-2xl active:scale-95 flex items-center gap-3 disabled:opacity-50"
+                        className="bg-slate-900 dark:bg-blue-600 hover:bg-black dark:hover:bg-blue-700 text-white px-12 py-5 rounded-[1.5rem] font-black transition-all shadow-2xl active:scale-95 flex items-center gap-3 disabled:opacity-50"
                     >
                         {saving ? (
                             <span className="animate-spin opacity-50">⏳</span>
@@ -245,12 +245,12 @@ const Settings = () => {
             </form>
 
             {/* Danger Zone Section */}
-            <div className="mt-16 pt-16 border-t border-slate-200">
+            <div className="mt-16 pt-16 border-t border-slate-200 dark:border-white/10">
                 <div className="flex items-center gap-4 mb-10">
-                    <span className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-xl">⚠️</span>
+                    <span className="w-12 h-12 bg-red-50 dark:bg-red-500/10 text-red-600 rounded-2xl flex items-center justify-center text-xl">⚠️</span>
                     <div>
                         <h3 className="text-2xl font-black text-red-600 leading-tight uppercase tracking-tight">Danger Zone</h3>
-                        <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">System Reset & Data Deletion</p>
+                        <p className="text-slate-400 dark:text-slate-500 text-sm font-bold uppercase tracking-widest">System Reset & Data Deletion</p>
                     </div>
                 </div>
 
@@ -277,7 +277,7 @@ const Settings = () => {
                     />
                     <button
                         onClick={() => { setResetType('all'); setShowResetModal(true); }}
-                        className="col-span-full bg-red-600 hover:bg-red-700 text-white p-8 rounded-[2rem] font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 shadow-xl shadow-red-200 active:scale-95"
+                        className="col-span-full bg-red-600 hover:bg-red-700 text-white p-8 rounded-[2rem] font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 shadow-xl shadow-red-200 dark:shadow-none active:scale-95"
                     >
                         🧨 FULL FACTORY RESET (EVERYTHING)
                     </button>
@@ -287,11 +287,11 @@ const Settings = () => {
             {/* Reset Confirmation Modal */}
             {showResetModal && (
                 <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-                    <div className="bg-white rounded-[3rem] shadow-2xl w-full max-w-xl overflow-hidden animate-in zoom-in duration-300">
+                    <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl w-full max-w-xl overflow-hidden animate-in zoom-in duration-300 border dark:border-white/10">
                         <div className="p-10 text-center">
-                            <div className="w-24 h-24 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">🚨</div>
-                            <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Final Confirmation</h3>
-                            <p className="text-slate-500 font-medium mb-8">
+                            <div className="w-24 h-24 bg-red-50 dark:bg-red-500/10 text-red-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">🚨</div>
+                            <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Final Confirmation</h3>
+                            <p className="text-slate-500 dark:text-slate-400 font-medium mb-8">
                                 Are you sure you want to reset <span className="text-red-600 font-bold underline underline-offset-4">{resetType?.toUpperCase()}</span>?
                                 This action <span className="text-red-600 font-bold italic">cannot be undone</span>.
                             </p>
@@ -300,14 +300,14 @@ const Settings = () => {
                                 <button
                                     disabled={isResetting}
                                     onClick={() => { setShowResetModal(false); setResetType(null); }}
-                                    className="flex-1 bg-slate-100 text-slate-900 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition-all disabled:opacity-50"
+                                    className="flex-1 bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-white/10 transition-all disabled:opacity-50"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     disabled={isResetting}
                                     onClick={confirmReset}
-                                    className="flex-1 bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg shadow-red-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                                    className="flex-1 bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg shadow-red-200 dark:shadow-none disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
                                     {isResetting ? 'Wiping...' : 'Destroy Data'}
                                 </button>
@@ -321,10 +321,10 @@ const Settings = () => {
 };
 
 const ResetActionCard = ({ title, desc, onClick }) => (
-    <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-100 hover:border-red-100 transition-all flex flex-col justify-between items-start gap-4">
+    <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border-2 border-slate-100 dark:border-white/5 hover:border-red-100 dark:hover:border-red-500/30 transition-all flex flex-col justify-between items-start gap-4">
         <div>
-            <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight">{title}</h4>
-            <p className="text-slate-400 text-xs font-bold leading-relaxed">{desc}</p>
+            <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight">{title}</h4>
+            <p className="text-slate-400 dark:text-slate-500 text-xs font-bold leading-relaxed">{desc}</p>
         </div>
         <button
             onClick={onClick}
