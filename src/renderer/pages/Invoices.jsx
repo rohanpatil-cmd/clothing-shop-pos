@@ -255,32 +255,32 @@ const Invoices = () => {
             </div>
 
             {/* Cart Sidebar */}
-            <div className="w-[400px] bg-white border-l border-slate-100 flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.04)] relative z-10 transition-all print:hidden">
-                <div className="p-8 border-b border-slate-50 bg-slate-50/50">
+            <div className="w-[400px] bg-white dark:bg-slate-900 border-l border-slate-100 dark:border-white/5 flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.04)] dark:shadow-none relative z-10 transition-all print:hidden">
+                <div className="p-8 border-b border-slate-50 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
                     <div className="flex items-center justify-between mb-8">
-                        <h3 className="text-2xl font-black text-slate-900 flex items-center gap-3">
-                            <span className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center text-lg">🛒</span>
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
+                            <span className="w-10 h-10 bg-slate-900 dark:bg-white/10 text-white rounded-xl flex items-center justify-center text-lg">🛒</span>
                             Order Summary
                         </h3>
-                        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">{cart.length} ITEMS</span>
+                        <span className="bg-blue-100 dark:bg-blue-600/20 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">{cart.length} ITEMS</span>
                     </div>
                     <div className="space-y-4">
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Mobile Number</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Mobile Number</label>
                             <input
                                 type="text"
                                 placeholder="+91 00000 00000"
-                                className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-sm transition-all outline-none"
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/5 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-sm transition-all outline-none"
                                 value={customer.mobile}
                                 onChange={e => setCustomer({ ...customer, mobile: e.target.value })}
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Customer Name</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Customer Name</label>
                             <input
                                 type="text"
                                 placeholder="Enter full name"
-                                className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-sm transition-all outline-none"
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/5 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 shadow-sm transition-all outline-none"
                                 value={customer.name}
                                 onChange={e => setCustomer({ ...customer, name: e.target.value })}
                             />
@@ -290,14 +290,14 @@ const Invoices = () => {
 
                 <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar">
                     {cart.length === 0 ? (
-                        <div className="h-full flex flex-col items-center justify-center text-slate-300 gap-4 opacity-40">
+                        <div className="h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-700 gap-4 opacity-40">
                             <span className="text-7xl">🛍️</span>
                             <p className="font-black text-xl uppercase tracking-widest">Cart is Empty</p>
                         </div>
                     ) : (
                         cart.map(item => (
                             <div key={item.product_id} className="flex gap-4 items-center group animate-in slide-in-from-right-4 duration-300">
-                                <div className="w-16 h-16 rounded-2xl bg-slate-100 flex-shrink-0 overflow-hidden border border-slate-100 shadow-inner">
+                                <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex-shrink-0 overflow-hidden border border-slate-100 dark:border-white/5 shadow-inner">
                                     {item.image ? (
                                         <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
                                     ) : (
@@ -305,23 +305,23 @@ const Invoices = () => {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h4 className="font-black text-slate-800 text-sm truncate uppercase tracking-tight">{item.name}</h4>
+                                    <h4 className="font-black text-slate-800 dark:text-slate-100 text-sm truncate uppercase tracking-tight">{item.name}</h4>
                                     <div className="flex items-center gap-2 mt-1">
-                                        <span className="text-slate-400 text-xs font-bold">{item.qty} units</span>
-                                        <span className="text-slate-200">|</span>
-                                        <span className="text-blue-600 text-xs font-black tracking-tight">₹{(item.qty * item.price).toLocaleString()}</span>
+                                        <span className="text-slate-400 dark:text-slate-500 text-xs font-bold">{item.qty} units</span>
+                                        <span className="text-slate-200 dark:text-slate-800">|</span>
+                                        <span className="text-blue-600 dark:text-blue-400 text-xs font-black tracking-tight">₹{(item.qty * item.price).toLocaleString()}</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => removeFromCart(item.product_id)}
-                                    className="w-8 h-8 flex items-center justify-center bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white rounded-full transition-all active:scale-90"
+                                    className="w-8 h-8 flex items-center justify-center bg-slate-50 dark:bg-white/5 text-slate-400 dark:text-slate-600 hover:bg-red-500 hover:text-white rounded-full transition-all active:scale-90"
                                 >✕</button>
                             </div>
                         ))
                     )}
                 </div>
 
-                <div className="p-8 bg-slate-900 text-white rounded-t-[4rem] shadow-[0_-20px_50px_rgba(15,23,42,0.3)]">
+                <div className="p-8 bg-slate-900 dark:bg-black text-white rounded-t-[4rem] shadow-[0_-20px_50px_rgba(15,23,42,0.3)]">
                     <div className="space-y-4 mb-8">
                         <div className="flex justify-between items-center opacity-50">
                             <span className="text-xs font-black uppercase tracking-[0.2em]">Merchandise Total</span>
@@ -348,7 +348,7 @@ const Invoices = () => {
                     <button
                         onClick={handleCreateInvoice}
                         disabled={cart.length === 0}
-                        className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 disabled:cursor-not-allowed text-white font-black py-6 rounded-3xl shadow-[0_20px_40px_rgba(37,99,235,0.3)] transition-all active:scale-95 text-xl tracking-[0.1em] flex items-center justify-center gap-3"
+                        className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 dark:disabled:bg-white/5 dark:disabled:text-slate-700 disabled:cursor-not-allowed text-white font-black py-6 rounded-3xl shadow-[0_20px_40px_rgba(37,99,235,0.3)] transition-all active:scale-95 text-xl tracking-[0.1em] flex items-center justify-center gap-3"
                     >
                         <span>FINALIZE ORDER</span>
                         <span className="text-2xl font-normal">→</span>
@@ -358,91 +358,91 @@ const Invoices = () => {
 
             {/* Success & Print Modal */}
             {showSuccess && lastInvoice && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300 print:hidden p-8">
-                    <div className="bg-white rounded-[3rem] p-10 w-[600px] max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-300 border border-white/20">
-                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100 flex-shrink-0">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 dark:bg-black/80 backdrop-blur-xl animate-in fade-in duration-300 print:hidden p-8">
+                    <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 w-[600px] max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-300 border border-white/20 dark:border-white/5">
+                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100 dark:border-white/5 flex-shrink-0">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl">
+                                <div className="w-12 h-12 bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center text-2xl">
                                     ✅
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900 leading-tight">Order Confirmed</h3>
-                                    <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest">#INV-{String(lastInvoice.id).padStart(5, '0')}</p>
+                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">Order Confirmed</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px] tracking-widest">#INV-{String(lastInvoice.id).padStart(5, '0')}</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setShowSuccess(false)}
-                                className="w-10 h-10 bg-slate-50 text-slate-400 hover:bg-slate-100 rounded-full flex items-center justify-center transition-all"
+                                className="w-10 h-10 bg-slate-50 dark:bg-white/5 text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full flex items-center justify-center transition-all"
                             >✕</button>
                         </div>
 
                         {/* Digital Invoice Preview */}
                         <div className="flex-1 overflow-y-auto px-4 py-2 space-y-6">
-                            <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
+                            <div className="bg-slate-50 dark:bg-black/20 rounded-3xl p-6 border border-slate-100 dark:border-white/5">
                                 <div className="flex justify-between items-start mb-6">
                                     <div className="space-y-1">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer</p>
-                                        <p className="font-black text-slate-900 text-lg uppercase">{lastInvoice.customer?.name}</p>
-                                        <p className="text-sm font-bold text-slate-500">{lastInvoice.customer?.mobile}</p>
+                                        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Customer</p>
+                                        <p className="font-black text-slate-900 dark:text-white text-lg uppercase">{lastInvoice.customer?.name}</p>
+                                        <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{lastInvoice.customer?.mobile}</p>
                                     </div>
                                     <div className="text-right space-y-1">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</p>
-                                        <p className="font-bold text-slate-900 text-sm">{new Date(lastInvoice.date).toLocaleDateString()}</p>
+                                        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Date</p>
+                                        <p className="font-bold text-slate-900 dark:text-white text-sm">{new Date(lastInvoice.date).toLocaleDateString()}</p>
                                     </div>
                                 </div>
 
                                 <div className="space-y-4">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Purchased Items</p>
+                                    <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Purchased Items</p>
                                     <div className="space-y-3">
                                         {lastInvoice.items?.map((item, idx) => (
                                             <div key={idx} className="flex justify-between items-center group">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 bg-slate-200 text-slate-500 rounded-lg flex items-center justify-center text-xs font-black">
+                                                    <div className="w-8 h-8 bg-slate-200 dark:bg-white/5 text-slate-500 dark:text-slate-400 rounded-lg flex items-center justify-center text-xs font-black">
                                                         {item.qty}
                                                     </div>
-                                                    <span className="font-bold text-slate-700 uppercase text-sm tracking-tight">{item.name}</span>
+                                                    <span className="font-bold text-slate-700 dark:text-slate-300 uppercase text-sm tracking-tight">{item.name}</span>
                                                 </div>
-                                                <span className="font-black text-slate-900 text-sm">₹{(item.price * item.qty).toLocaleString()}</span>
+                                                <span className="font-black text-slate-900 dark:text-white text-sm">₹{(item.price * item.qty).toLocaleString()}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="mt-8 pt-6 border-t border-slate-200/60 space-y-2">
-                                    <div className="flex justify-between items-center text-sm font-bold text-slate-500">
+                                <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-white/5 space-y-2">
+                                    <div className="flex justify-between items-center text-sm font-bold text-slate-500 dark:text-slate-400">
                                         <span>Subtotal</span>
                                         <span>₹{((lastInvoice?.total_amount || 0) + (lastInvoice?.discount_amount || 0)).toLocaleString()}</span>
                                     </div>
                                     {(lastInvoice?.discount_amount || 0) > 0 && (
-                                        <div className="flex justify-between items-center text-sm font-bold text-red-500">
+                                        <div className="flex justify-between items-center text-sm font-bold text-red-500 dark:text-red-400">
                                             <span>Discount</span>
                                             <span>-₹{lastInvoice?.discount_amount.toLocaleString()}</span>
                                         </div>
                                     )}
                                     <div className="flex justify-between items-center pt-2">
-                                        <span className="text-sm font-black text-slate-900 uppercase tracking-widest">Net Payable</span>
-                                        <span className="text-2xl font-black text-slate-900 tracking-tighter">₹{(lastInvoice?.total_amount || 0).toLocaleString()}</span>
+                                        <span className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Net Payable</span>
+                                        <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">₹{(lastInvoice?.total_amount || 0).toLocaleString()}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="text-center bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
-                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center justify-center gap-2">
+                            <div className="text-center bg-blue-50/50 dark:bg-blue-600/10 p-4 rounded-2xl border border-blue-100/50 dark:border-blue-500/20">
+                                <p className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest flex items-center justify-center gap-2">
                                     <span>📱</span> WhatsApp Invoice Sent Successfully
                                 </p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-100 flex-shrink-0">
+                        <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-100 dark:border-white/5 flex-shrink-0">
                             <button
                                 onClick={handlePrint}
-                                className="bg-slate-900 hover:bg-black text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-slate-200"
+                                className="bg-slate-900 dark:bg-white/10 hover:bg-black dark:hover:bg-white/20 text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none"
                             >
                                 <span className="text-xl">🖨️</span> Print Bill
                             </button>
                             <button
                                 onClick={() => setShowSuccess(false)}
-                                className="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-200"
+                                className="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-200 dark:shadow-none"
                             >
                                 Done
                             </button>
