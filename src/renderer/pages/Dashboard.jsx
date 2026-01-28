@@ -186,14 +186,14 @@ const Dashboard = ({ user }) => {
                         <div className="space-y-6 relative z-10">
                             <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/5">
                                 <div className="text-blue-400 text-[10px] font-black uppercase tracking-widest mb-1">Growth Forecast</div>
-                                <p className="text-slate-400 text-sm leading-relaxed">
+                                <p className="text-slate-400 dark:text-slate-400 text-sm leading-relaxed">
                                     Your monthly sales of <span className="text-white font-bold">₹{stats.monthlySales.toLocaleString()}</span> represents the health of your shop over the last 30 days. Maintain stock for best sellers.
                                 </p>
                             </div>
 
                             <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/5">
                                 <div className="text-blue-400 text-[10px] font-black uppercase tracking-widest mb-1">Quick Tip</div>
-                                <p className="text-slate-400 text-sm leading-relaxed">
+                                <p className="text-slate-400 dark:text-slate-400 text-sm leading-relaxed">
                                     You have <span className={`${stats.lowStockCount > 0 ? 'text-red-400' : 'text-emerald-400'} font-bold`}>{stats.lowStockCount} low stock items</span>. Restocking soon will prevent lost revenue on popular items.
                                 </p>
                             </div>
@@ -206,10 +206,10 @@ const Dashboard = ({ user }) => {
 };
 
 const StatCard = ({ label, value, icon, color, shadow }) => (
-    <div className={`bg-white rounded-[2.5rem] p-8 shadow-xl ${shadow} border border-slate-100 flex items-center justify-between transition-transform hover:scale-[1.03] group`}>
+    <div className={`bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 shadow-xl ${shadow} dark:shadow-none border border-slate-100 dark:border-white/5 flex items-center justify-between transition-transform hover:scale-[1.03] group`}>
         <div>
-            <div className="text-slate-400 text-xs font-black uppercase tracking-widest mb-2 group-hover:text-slate-600 transition-colors">{label}</div>
-            <div className="text-3xl font-black text-slate-900">{value}</div>
+            <div className="text-slate-400 dark:text-slate-500 text-xs font-black uppercase tracking-widest mb-2 group-hover:text-slate-600 dark:group-hover:text-slate-400 transition-colors">{label}</div>
+            <div className="text-3xl font-black text-slate-900 dark:text-white">{value}</div>
         </div>
         <div className={`w-14 h-14 bg-gradient-to-br ${color} rounded-2xl flex items-center justify-center text-2xl shadow-lg transform transition-transform group-hover:rotate-12`}>
             {icon}
