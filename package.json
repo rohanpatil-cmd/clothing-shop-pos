@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node run-dev.js",
-    "build": "vite build && electron-builder",
-    "preview": "vite preview",
-    "electron": "cross-env ELECTRON_RUN_AS_NODE= electron ."
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.13.2",

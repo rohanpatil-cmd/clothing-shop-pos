@@ -1,12 +1,6 @@
 const Database = require('better-sqlite3');
 const path = require('path');
-const { app } = require('electron');
-
-const isDev = !app.isPackaged;
-
-const dbPath = isDev
-  ? path.join(__dirname, '../../shop.db')
-  : path.join(app.getPath('userData'), 'shop.db');
+const dbPath = path.join(__dirname, '../../shop.db');
 
 let db;
 

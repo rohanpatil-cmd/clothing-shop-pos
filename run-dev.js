@@ -1,17 +1,13 @@
 import { spawn } from 'child_process';
 
-// Unset the problematic environment variable
-delete process.env.ELECTRON_RUN_AS_NODE;
-
 // Start concurrently
 // Using quotes carefully for Windows
 const devProcess = spawn('npx', [
     'concurrently',
-    '-n', 'Vite,WhatsApp,Electron,GitSync',
-    '-c', 'blue,magenta,green,yellow',
+    '-n', 'Vite,API,GitSync',
+    '-c', 'blue,magenta,yellow',
     '"npx vite"',
-    '"node src/main/whatsappServer.cjs"',
-    '"npx wait-on http://localhost:4500 && npx electron ."',
+    '"node src/main/server.cjs"',
     '"node git-sync.cjs"'
 ], {
     stdio: 'inherit',
