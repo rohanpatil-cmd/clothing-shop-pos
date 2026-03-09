@@ -8,5 +8,8 @@ export default defineConfig({
   server: {
     port: 4500,
     strictPort: true,
+    proxy: {
+      '/api': 'http://localhost:4000'
+    }
   },
 });
